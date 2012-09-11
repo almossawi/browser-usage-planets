@@ -1,0 +1,283 @@
+﻿html {
+	min-height: 100%;
+	overflow: hidden;
+	background: #000;
+	font: 13px/1.56 "Helvetica Neue", "Gill Sans", 'Lato', Helvetica, sans-serif, Arial;
+}
+
+h1 {
+	font-weight:100;
+	font-size:40px;
+	padding-top:0;
+	margin-top:0;
+	color:white;
+	position:absolute;
+	top:10px;
+	left:20px;
+}
+
+#current_date_top_right {
+	position:fixed;
+	right:81px;
+	color:white;
+	font-weight:100;
+	font-size:28px;
+	padding-top:0;
+	margin-top:0;
+	top:32px;
+}
+
+#current_date_top_left {
+	fill:#cccccc;
+	font-weight:200;
+	padding-top:0;
+	margin-top:0;
+}
+
+#prev_date {
+	font-weight:600;
+	position:fixed;
+	right:240px;
+	padding-top:0;
+	margin-top:0;
+	top:22px;
+	font-size:36px;
+}
+
+#next_date {
+	font-weight:600;
+	position:fixed;
+	right:20px;
+	padding-top:0;
+	margin-top:0;
+	top:22px;
+	font-size:36px;
+	/*display:none; */ /* default will always be latest month (last month) */
+}
+
+#prev_date a,
+#next_date a {
+	color:#dbdbdb;
+}
+
+#credit {
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	padding-bottom:2px;
+	padding-left:6px;
+	color:white;
+	font-weight:200;
+	font-size:9.5pt;
+	width:100%;
+	background-color:#000;
+	height:50px;
+	border-top:1px dotted #464646;
+	z-index:99999999;
+}
+
+#plane_container {
+	background-image:url('../images/sky5_lighter.png');
+	background-repeat:repeat;
+}
+
+.plane {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	opacity:0;
+}
+
+.round {
+	min-width: 10px;
+	min-height: 10px;
+	border-radius: 50%;
+}
+
+.trace {
+	border: dotted 3px #333;
+}
+
+.orbit, .trace {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+}
+
+.planet {
+	position: relative;
+}
+
+.star_firefox {
+	position:absolute;
+	left:1235px;
+	top:213px;
+	width: 85px;
+	height: 85px;
+	margin: -47px 0 0 -47px;
+	border-radius: 50%;
+	box-shadow: 0 0 20px #ffc, 0 0 30px #fe8, 0 0 40px #fb3, 
+		0 0 50px #e70, 0 0 60px #c40, 0 0 70px #931, 0 0 80px #410;
+	background: #dcdaa7;
+	border:1px solid #dcdaa7;
+	z-index:9999999;
+}
+
+.star_firefox:after {
+	font-family:"Gill Sans", "Helvetica Neue", 'Lato', Helvetica, sans-serif, Arial;
+	font-weight:200;
+	position:relative;
+	left:20px;
+	top:-70px;
+	font-size:18px;
+	color:#fff;
+	/*text-shadow: 1px 1px 1px #ffa800;*/
+	content: "Firefox";
+}
+
+.star_chrome {
+	position:absolute;
+	left:-780px;
+	top:195px;
+	width: 85px;
+	height: 85px;
+	margin: -47px 0 0 -47px;
+	border-radius: 50%;
+	box-shadow: 0 0 20px #afe1b8, 0 0 30px #a3e3af, 0 0 40px #8fe99f, 
+		0 0 50px #6de783, 0 0 60px #4cde66, 0 0 70px #2ed54c, 0 0 80px #05961f;
+	background: #62d076;
+	border:1px solid #62d076;
+	z-index:9999999;
+}
+
+.star_chrome:after {
+	font-family:"Gill Sans", "Helvetica Neue", 'Lato', Helvetica, sans-serif, Arial;
+	font-weight:200;
+	position:relative;
+	left:14px;
+	top:-70px;
+	font-size:18px;
+	color:#fff;
+	/*text-shadow: 1px 1px 1px #ffa800;*/
+	content: "Chrome";
+}
+
+.star_ie {
+	position:absolute;
+	left:465px;
+	top:323px;
+	width: 85px;
+	height: 85px;
+	margin: -47px 0 0 -47px;
+	border-radius: 50%;
+	box-shadow: 0 0 20px #d8ebf9, 0 0 30px #cce6f9, 0 0 40px #b1daf9, 
+		0 0 50px #92cffc, 0 0 60px #71bff9, 0 0 70px #5eb8fb, 0 0 80px #49b0fc;
+	background: #9dcff4;
+	border:1px solid #9dcff4;
+	z-index:9999999;
+}
+
+.star_ie:after {
+	font-family:"Gill Sans", "Helvetica Neue", 'Lato', Helvetica, sans-serif, Arial;
+	font-weight:200;
+	position:relative;
+	left:37px;
+	top:-70px;
+	font-size:18px;
+	color:#fff;
+	/*text-shadow: 1px 1px 1px #ffa800;*/
+	content: "IE";
+}
+
+.star_opera {
+	position:absolute;
+	left:648px;
+	top:-87px;
+	width: 85px;
+	height: 85px;
+	margin: -47px 0 0 -47px;
+	border-radius: 50%;
+	box-shadow: 0 0 20px #dbb5af, 0 0 30px #cb9991, 0 0 40px #bf7e74, 
+		0 0 50px #ac3c2a, 0 0 60px #ac3c2a, 0 0 70px #ad2b17, 0 0 80px #a71600;
+	background: #bf7e74;
+	border:1px solid #bf7e74;
+	z-index:9999999;
+}
+
+.star_opera:after {
+	font-family:"Gill Sans", "Helvetica Neue", 'Lato', Helvetica, sans-serif, Arial;
+	font-weight:200;
+	position:relative;
+	left:20px;
+	top:-70px;
+	font-size:18px;
+	color:#fff;
+	/*text-shadow: 1px 1px 1px #ffa800;*/
+	content: "Opera";
+}
+
+.moon {
+	fill:#e7e5e5;
+	background: #ffffff; /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZTVlNWU1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-radial-gradient(center, ellipse cover, hsl(0,0%,100%) 0%, hsl(0,0%,90%) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,hsl(0,0%,100%)), color-stop(100%,hsl(0,0%,90%))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, hsl(0,0%,100%) 0%,hsl(0,0%,90%) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, hsl(0,0%,100%) 0%,hsl(0,0%,90%) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, hsl(0,0%,100%) 0%,hsl(0,0%,90%) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, hsl(0,0%,100%) 0%,hsl(0,0%,90%) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+}
+
+.orbit_path {
+	fill:none;
+}
+
+#play_pause_icon {
+	position:relative;
+	top:4px;
+	padding-left:8px;
+}
+
+path {
+	stroke:white;
+	stroke-width:1;
+	opacity:0.2;
+}
+
+#summary_chart {
+	z-index:99999;
+	border:0px solid white;
+	width:250px;
+	height:150px;
+	position:absolute;
+	top:100px;
+	left:30px;
+}
+
+#summary_chart .bar {	
+	fill:#e7e5e5;
+	stroke-width:1;
+	shape-rendering:crispEdges;
+	stroke:black;
+}
+
+#summary_chart .bar_top {
+	fill:red;
+	stroke-width:1;
+	shape-rendering:crispEdges;
+	stroke:black;
+}
+
+.tiny {
+	font-size:7.5pt;
+	text-rendering:crispEdges;
+}
+
+a, a:hover, a:active, a:link, a:visited {
+	text-decoration:none;
+	color:white;
+}
