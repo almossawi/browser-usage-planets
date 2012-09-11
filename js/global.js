@@ -1,6 +1,8 @@
 "use strict";
 
 var max_orbits = 3,
+	delayBetweenTimeTravels = 600, //how quickly can one click prev/next consecutively (due to issues in Safari if they're clicked repeatedly too quickly)
+	populateSummaryBoxDelay = 150,
 	bar_transition_speed = 200,
 	firefox_constant_x = 1250,
 	firefox_constant_y = 220,
@@ -13,7 +15,8 @@ var max_orbits = 3,
 	
 var top_countries =	["AR","AT","AU","BR","CA","CH","CN","DE","ES","FR","GB","ID","IN","IT","JP","MX","MY","NK","PH","PL","RU","SE","TR","US","VN"];
 
-var shaky_shaky_done = true,
+var movedThroughTimeJustNow = false,
+	shaky_shaky_done = true,
 	up_firefox = false,
 	up_chrome = false,
 	up_ie = false,
@@ -29,6 +32,8 @@ var shaky_shaky_done = true,
 
 //https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween
 $(document).ready(function () {
+	$("#socialmedia").delay(1500).fadeIn();
+
 	wobble_firefox();
 	wobble_chrome();
 	wobble_ie();
@@ -51,17 +56,17 @@ $(document).ready(function () {
 		}, 900);
 	});
 	
-	$("#prev_date").on("click", function() { left(); });
-	$("#next_date").on("click", function() { right(); });
+	$("#prev_date").on("click", function(e) { left(e); });
+	$("#next_date").on("click", function(e) { right(e); });
 	
 	$("body").bind('keyup', function(e) {
 		var code = (e.keyCode ? e.keyCode : e.which);
 		if(code == 37) { //left arrow
-			left();	
+			left(e);	
 			return false;
 		}
 		else if(code == 39) { //right arrow
-			right();	
+			right(e);	
 			return false;
 		}
 	});
@@ -83,7 +88,15 @@ function updateData() {
 	processData(mm, yyyy);
 }
 
-function left() {
+function left(e) {
+	if(!movedThroughTimeJustNow) {
+        movedThroughTimeJustNow = true;
+        setTimeout("movedThroughTimeJustNow = false", delayBetweenTimeTravels);
+    } else {
+        e.preventDefault();
+        return;
+    }
+
 	if($("#current_date_top_right").html() == "Jul 2008") {
 		if(shaky_shaky_done) {
 			shaky_shaky_done = false;
@@ -100,7 +113,15 @@ function left() {
 	updateData();
 }
 
-function right() {
+function right(e) {
+	if(!movedThroughTimeJustNow) {
+        movedThroughTimeJustNow = true;
+        setTimeout("movedThroughTimeJustNow = false", delayBetweenTimeTravels);
+    } else {
+        e.preventDefault();
+        return;
+    }
+    
 	var today = Date.today().add(-1).months().toString("MMM yyyy");
 	if($("#current_date_top_right").html() == today) {		
 		if(shaky_shaky_done) {
@@ -138,14 +159,27 @@ function processData(month, year) {
 		opera_count = (data["opera"]) ? data["opera"].length : "";
 		
 		buildMoons(data, ["firefox","ie", "chrome", "opera"]);
-		
-		//how many top markets do we have
-		if(data["firefox"] != undefined) data["firefox"].map(isTopMarketFirefox);
-		if(data["chrome"] != undefined) data["chrome"].map(isTopMarketChrome);
-		if(data["ie"] != undefined) data["ie"].map(isTopMarketIe);
-		if(data["opera"] != undefined) data["opera"].map(isTopMarketOpera);
-		
-		//build the summary chart
+		populateCounts(data);
+		setTimeout(populateSummaryBox, populateSummaryBoxDelay);
+	});
+}
+
+
+function isTopMarketFirefox(e) { if($.inArray(e, top_countries) != -1) { firefox_top_countries++; } }
+function isTopMarketChrome(e) { if($.inArray(e, top_countries) != -1) { chrome_top_countries++; } }
+function isTopMarketIe(e) { if($.inArray(e, top_countries) != -1) { ie_top_countries++; } }
+function isTopMarketOpera(e) { if($.inArray(e, top_countries) != -1) { opera_top_countries++; } }
+
+
+function populateCounts(data) {
+	if(data["firefox"] != undefined) $.map(data["firefox"], isTopMarketFirefox);
+	if(data["chrome"] != undefined) data["chrome"].map(isTopMarketChrome);
+	if(data["ie"] != undefined) data["ie"].map(isTopMarketIe);
+	if(data["opera"] != undefined) data["opera"].map(isTopMarketOpera);
+}
+
+function populateSummaryBox() {
+	//build the summary chart
 		var sumbox = d3.select("#summary_chart");
 					
 		//firefox
@@ -241,15 +275,7 @@ function processData(month, year) {
 				.attr("x", function() { return 102 + opera_top_countries * 2; });
 
 		$("#summary_chart").attr("transform", "translate(0,0)");
-	});
 }
-
-
-function isTopMarketFirefox(e) { if($.inArray(e, top_countries) != -1) { firefox_top_countries++; } }
-function isTopMarketChrome(e) { if($.inArray(e, top_countries) != -1) { chrome_top_countries++; } }
-function isTopMarketIe(e) { if($.inArray(e, top_countries) != -1) { ie_top_countries++; } }
-function isTopMarketOpera(e) { if($.inArray(e, top_countries) != -1) { opera_top_countries++; } }
-
 
 function buildMoons(data, planets) {
 	d3.selectAll(".moon").remove();
