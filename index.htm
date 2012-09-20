@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Mozilla Cosmos</title>
+	<title>Visualizing browser market share - Mozilla Cosmos</title>
 	
 	<meta property="og:title" content="Mozilla Cosmos" /> 
 	<meta property="og:description" content="A space-themed data visualization showing browser usage plurality across countries" /> 
@@ -11,13 +11,15 @@
 	<meta property="og:site_name" content="Mozilla Cosmos" />
 		
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/jquery-ui.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/d3.js"></script>
 	<!--<script type="text/javascript" src="http://d3js.org/d3.v2.js"></script> -->
 	<script type="text/javascript" src="js/global.js"></script>
 	<script type="text/javascript" src="js/date.js"></script>
 	<link rel="stylesheet" href="css/style.css">
+   	<link rel="stylesheet" href="css/ui.core.css" type="text/css" media="screen" />			
+   	<link rel="stylesheet" href="css/ui.theme.css" type="text/css" media="screen" />
 </head>
 <body>		
 		<div id="fb-root"></div>
@@ -31,38 +33,48 @@
 		}(document, 'script', 'facebook-jssdk'));
 		</script>
 
-		<div id="plane_container" style="width:100%;height:100%;position:fixed;left:10;top:10">
+		<div id="plane_container">
 			<!--<h1>From this distant vantage point...</h1>-->
 			<h1>Browser usage plurality across countries</h1>
 			
-			<div id="prev_date"><a href="#"><img src="images/left_arrow.png" style="border:0" /></a></div>
+			<div id="prev_date"><a href="#"><img src="images/left_arrow.png" style="border:0" alt="&lt;" /></a></div>
 			<div id="current_date_top_right" class="current_date"></div>
-			<div id="next_date"><a href="#"><img src="images/right_arrow.png" style="border:0" /></a></div>
+			<div id="jump_to_date_link"><a href="#">JUMP TO A DATE</a></div>
+			
+			<div id="slider-vertical"></div>
+			<div id="slider-vertical_zoomin"><span>+</span></div>
+			<div id="slider-vertical_zoomout"><span>-</span></div>
+
+			<div id="next_date"><a href="#"><img src="images/right_arrow.png" style="border:0" alt="&gt;" /></a></div>
 			
 			<div id="credit">
-				<a href="http://www.mozilla.com"><img src="images/mozilla_small.png" style="width:72px;height:17px;padding:0;margin:0;position:fixed;bottom:27px;left:0;border:0" /></a>
-				<div style="position:fixed;bottom:25px;left:100px">
-				<a href="about.htm">overview and credits</a>
-				<!--&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-				<a href="#">blog</a>-->
-				&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-				<a href="#" id="play_pause" title="From the album 'Heaven and Hell' by Vangelis">audio<img id="play_pause_icon" src="images/audio_paused.png" style="padding-left:4px;border:0" title="From the album 'Heaven and Hell' by Vangelis" alt="From the album 'Heaven and Hell' by Vangelis" /></a>
-				<audio id="audio" loop="loop">
-					<source src="cosmos.ogg" type="audio/ogg" />
-					<source src="cosmos.mp3" type="audio/mpeg" />
-				</audio>
+				<a href="http://www.mozilla.com"><img src="images/mozilla_small.png" id="mozlogo" alt="mozilla" /></a>
+				<div style="position:fixed;bottom:24px;left:100px">
+					<a href="about.htm">about this visualization</a>
+					&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+					<a href="#" id="trends_link">interesting trends</a>
+					&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+					<a href="#" id="play_pause" title="From the album 'Heaven and Hell' by Vangelis">audio<img id="play_pause_icon" src="images/audio_paused.png" style="padding-left:4px;border:0" title="From the album 'Heaven and Hell' by Vangelis" alt="From the album 'Heaven and Hell' by Vangelis" /></a>
+					<audio id="audio" loop="loop">
+						<source src="cosmos.ogg" type="audio/ogg" />
+						<source src="cosmos.mp3" type="audio/mpeg" />
+					</audio>			
+				</div>
+
+				<div class="middle_pane">
+					<div class="cat-buttonset cat-buttonset-multi">
+						<button id="show_all_moons" class="cat-button-icon-left cat-button ui-state-default ui-corner-left" style="width:200px"><span class="icon">&nbsp;</span><span class="label">Show sensitive countries</span></button>
+						<button id="follow_a_country" class="cat-button-icon-left cat-button ui-state-default" style="width:150px"><span class="label">Follow a country</span></button>
+						<button id="show_country_names" class="cat-button-icon-left cat-button ui-state-default ui-corner-right" style="width:200px"><span class="label">Show country names</span></button>
+					</div>
 				</div>
 				
-				<!--<div style="margin-left:auto;margin-right:auto;width:300px;text-align:center;padding-left:10px;padding-top:6px">
-					PREVIEW
-				</div>-->
-				
-				<div id="socialmedia" style="opacity:0.8" >
-					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.mozillacosmos.com">Tweet</a>
+				<div id="socialmedia">
+					<!--<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.mozillacosmos.com">Tweet</a>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					
-					<div class="fb-like" data-href="http://www.mozillacosmos.com" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-colorscheme="light" style="position:relative;top:-3px"></div>
-					
+					<div class="fb-like" data-href="http://www.mozillacosmos.com" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-colorscheme="light" style="position:relative;top:-3px;left:-20px;width:10px"></div>-->
+					<img src="images/social_media_soon.png" style="border:0;position:fixed;bottom:17px" alt="soon" />
 				</div>
 				
 				<!--<div style="position:fixed;bottom:25px;right:10px;font-style:italic;font-size:8pt;color:#8b8b8b">
@@ -70,26 +82,56 @@
 				</div>-->
 			</div>
 		
-			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1800" height="1000">
+			<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" height="100%" preserveAspectRatio="xMinYMin meet" viewBox="0 100 1800 800">
+				<defs>
+					<filter id="dropshadow" height="130%">
+  						<feGaussianBlur in="SourceGraphic" stdDeviation="8" /> <!-- stdDeviation is how much to blur -->
+    					<feOffset dx="0" dy="0" result="offsetblur" /> <!-- how much to offset -->
+    					<feMerge> 
+      						<feMergeNode/> <!-- this contains the offset blurred image -->
+      						<feMergeNode in="SourceGraphic" /> <!-- this contains the element that the filter is applied to -->
+   						</feMerge>
+					</filter>
+
+    				<radialGradient id="gradient_opera" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+	      				<stop offset="10%" style="stop-color:rgb(239,15,42);stop-opacity:1" />
+    	  				<stop offset="100%" style="stop-color:rgb(127,0,1);stop-opacity:1" />
+    				</radialGradient>
+
+    				<radialGradient id="gradient_firefox" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+	      				<stop offset="10%" style="stop-color:rgb(255,203,0);stop-opacity:1" />
+    	  				<stop offset="100%" style="stop-color:rgb(255,149,0);stop-opacity:1" />
+    				</radialGradient>
+
+    				<radialGradient id="gradient_chrome" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+	      				<stop offset="10%" style="stop-color:rgb(94,229,81);stop-opacity:1" />
+    	  				<stop offset="100%" style="stop-color:rgb(63,146,64);stop-opacity:1" />
+    				</radialGradient>
+
+    				<radialGradient id="gradient_ie" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+	      				<stop offset="10%" style="stop-color:rgb(123,217,255);stop-opacity:1" />
+    	  				<stop offset="100%" style="stop-color:rgb(10,127,206);stop-opacity:1" />
+    				</radialGradient>
+				</defs>
+
 				<g id="summary_chart">
-					<rect x="100" y="100" height="14" id="firefox_plurality" class="bar" />
-					<rect x="100" y="100" height="14" id="firefox_top_markets_plurality" class="bar_top" />
-					<rect x="100" y="100" height="14" id="aaa" class="bar_top" />
+					<rect x="100" y="100" height="14" width="1" id="firefox_plurality" class="bar" />
+					<rect x="100" y="100" height="14" width="1" id="firefox_top_markets_plurality" class="bar_top" />
 					<text x="106" y="111" fill="white" id="firefox_plurality_text" class="tiny" />
 					<text x="106" y="111" fill="black" id="firefox_top_markets_plurality_text" class="tiny" />
 					
-					<rect x="100" y="120" height="14" id="chrome_plurality" class="bar" />
-					<rect x="100" y="120" height="14" id="chrome_top_markets_plurality" class="bar_top" />
+					<rect x="100" y="120" height="14" width="1" id="chrome_plurality" class="bar" />
+					<rect x="100" y="120" height="14" width="1" id="chrome_top_markets_plurality" class="bar_top" />
 					<text x="106" y="131" fill="white" id="chrome_plurality_text" class="tiny" />
 					<text x="106" y="131" fill="black" id="chrome_top_markets_plurality_text" class="tiny" />
 					
-					<rect x="100" y="140" height="14" id="ie_plurality" class="bar" />
-					<rect x="100" y="140" height="14" id="ie_top_markets_plurality" class="bar_top" />
+					<rect x="100" y="140" height="14" width="1" id="ie_plurality" class="bar" />
+					<rect x="100" y="140" height="14" width="1" id="ie_top_markets_plurality" class="bar_top" />
 					<text x="106" y="151" fill="white" id="ie_plurality_text" class="tiny" />
 					<text x="106" y="151" fill="black" id="ie_top_markets_plurality_text" class="tiny" />
 					
-					<rect x="100" y="160" height="14" id="opera_plurality" class="bar" />
-					<rect x="100" y="160" height="14" id="opera_top_markets_plurality" class="bar_top" />
+					<rect x="100" y="160" height="14" width="1" id="opera_plurality" class="bar" />
+					<rect x="100" y="160" height="14" width="1" id="opera_top_markets_plurality" class="bar_top" />
 					<text x="106" y="171" fill="white" id="opera_plurality_text" class="tiny" />
 					<text x="106" y="171" fill="black" id="opera_top_markets_plurality_text" class="tiny" />
 					
@@ -107,11 +149,44 @@
 				<g id="opera_system"></g>
 			</svg>
 
-			<div class="star_firefox">
+			<!--<div class="star_firefox">
 			<div class="star_chrome">
 			<div class="star_ie">
-			<div class="star_opera">
+			<div class="star_opera">-->
 			
+			<div id="content">
+				<div class="x"><a href="#">X</a></div>
+
+				<h2 style="margin-top:110px">Interesting trends</h2>
+				<br />
+				<span></span>
+
+				<p>Patience, grasshopper.  In time...</p>
+
+				<!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lacus felis, luctus sit amet consectetur ac, pellentesque vitae ante. Ut turpis magna, gravida at mollis at, varius nec nunc. Vivamus condimentum velit eu augue molestie tristique. Proin dapibus leo in nisl faucibus eu egestas ligula porttitor. Sed suscipit magna vitae nisl luctus vehicula.</p>
+
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dolor nibh, commodo a semper vitae, interdum ut augue. Mauris purus dolor, mattis in luctus quis, vestibulum nec tellus. Maecenas urna ipsum, auctor ut sollicitudin sit amet, accumsan nec quam.</p>-->
+			</div>
+			
+			<div id="dim"><!--<img src="images/gradient.png" class="gradient" />--></div>
+			<div id="modal_box">
+				<p>Begin typing a date; press <span style="font-family:Courier">enter</span> when done or <span style="font-family:Courier">escape</span> to cancel.<br />Pressing <span style="font-family:Courier">j</span> at any time will bring up this screen.</p>
+				<input type="text" name="the_glorious_date" id="date_field" maxlength="18" />
+				<p class="error"></p>
+			</div>
+			<div id="modal_box2">
+				<p>Begin typing a country's name; select the appropriate name from the items that appear below with your mouse or keyboard and press <span style="font-family:Courier">enter</span> when done. <br />Press <span style="font-family:Courier">escape</span> to cancel. Pressing <span style="font-family:Courier">f</span> at any time will bring up this screen.</p>
+				
+				<div class="ui-widget" style="color:white;width:530px">
+					<input id="country" maxlength="18" />
+				</div>
+
+				<input id="selected_country" type="hidden" value="" />
+				<input id="selected_country_id" type="hidden" value="" />
+				<p class="error" style="padding-left:300px;position:relative;top:-8px"></p>
+			</div>
+			<div id="arbitrary_msg_box"></div>
 		</div>
+
 	</body>
 </html>

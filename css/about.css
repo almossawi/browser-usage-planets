@@ -27,25 +27,26 @@ h2 {
 #overview_box {
 	padding:10px;
 	padding-left:25px;
+	padding-right:25px;
 	-moz-box-shadow: 0 0 25px 5px #000000;
 	-webkit-box-shadow: 0 0 25px 5px #000000;
 	box-shadow: 0 0 25px 5px #000000;
 	z-index:999;
 	width:900px;
-	height:500px;
+	height:540px;
 	background-color:#000000;
 	opacity:1;
 	color:white;
 	margin-left:auto;
 	margin-right:auto;
 	top:50%;
-	margin-top:200px;
+	margin-top:170px;
 	border:0px solid #3b3b3b;
 	background-image:url('../images/about_wall.jpg');
 }
 
 body {
-	background-image:url('../images/sky5b.png');
+	background-image:url('../images/sky5c.png');
 	background-repeat:repeat;
 	background-color:#000000;
 }
@@ -57,7 +58,7 @@ body {
 	height:295px;
 	left:50%;
 	margin-left:-174px;
-	top:70px;
+	top:40px;
 }
 
 #cosmos_logo_bottom {
@@ -67,7 +68,7 @@ body {
 	height:295px;
 	left:50%;
 	margin-left:-174px;
-	top:420px;
+	top:430px;
 }
 
 a, a:hover, a:active, a:link, a:visited {
@@ -80,8 +81,14 @@ a, a:hover, a:active, a:link, a:visited {
 	position:relative;
 	float:right;
 	top:-55px;
-	right:15px;
+	right:0px;
 	padding-top:0;
 	margin-top:0;
 	font-size:36px;
+}
+
+#hawking {
+	position:fixed;
+	bottom:20px;
+	left:-500px;
 }
