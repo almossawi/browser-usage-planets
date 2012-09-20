@@ -69,6 +69,7 @@ body {
 	left:50%;
 	margin-left:-174px;
 	top:430px;
+	opacity:0.4;
 }
 
 a, a:hover, a:active, a:link, a:visited {
