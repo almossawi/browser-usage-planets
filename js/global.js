@@ -72,7 +72,7 @@ var countries = [
 {value: "BO", label: "Bolivia"},
 {value: "BA", label: "Bosnia and Herzegovina"},
 {value: "BW", label: "Botswana"},
-{value: "BV", label: "Bouvet Island"},
+//{value: "BV", label: "Bouvet Island"},
 {value: "BR", label: "Brazil"},
 {value: "IO", label: "British Indian Ocean Territory"},
 {value: "BN", label: "Brunei Darussalam"},
@@ -88,8 +88,8 @@ var countries = [
 {value: "TD", label: "Chad"},
 {value: "CL", label: "Chile"},
 {value: "CN", label: "China"},
-{value: "CX", label: "Christmas Island"},
-{value: "CC", label: "Cocos (Keeling) Islands"},
+//{value: "CX", label: "Christmas Island"},
+//{value: "CC", label: "Cocos (Keeling) Islands"},
 {value: "CO", label: "Colombia"},
 {value: "KM", label: "Comoros"},
 {value: "CG", label: "Congo"},
@@ -132,12 +132,12 @@ var countries = [
 {value: "GP", label: "Guadeloupe"},
 {value: "GU", label: "Guam"},
 {value: "GT", label: "Guatemala"},
-{value: "GG", label: "Guernsey"},
+//{value: "GG", label: "Guernsey"},
 {value: "GN", label: "Guinea"},
 {value: "GW", label: "Guinea-bissau"},
 {value: "GY", label: "Guyana"},
 {value: "HT", label: "Haiti"},
-{value: "HM", label: "Heard Island and Mcdonald Islands"},
+//{value: "HM", label: "Heard Island and Mcdonald Islands"},
 {value: "VA", label: "Holy See (Vatican City State)"},
 {value: "HN", label: "Honduras"},
 {value: "HK", label: "Hong Kong"},
@@ -145,7 +145,7 @@ var countries = [
 {value: "IS", label: "Iceland"},
 {value: "IN", label: "India"},
 {value: "ID", label: "Indonesia"},
-{value: "IR", label: "Iran, Islamic Republic of"},
+{value: "IR", label: "Iran"},
 {value: "IQ", label: "Iraq"},
 {value: "IE", label: "Ireland"},
 {value: "IM", label: "Isle of Man"},
@@ -213,11 +213,11 @@ var countries = [
 {value: "PW", label: "Palau"},
 {value: "PS", label: "Palestine"},
 {value: "PA", label: "Panama"},
-{value: "PG", label: "Papua New Guinea"},
+//{value: "PG", label: "Papua New Guinea"},
 {value: "PY", label: "Paraguay"},
 {value: "PE", label: "Peru"},
 {value: "PH", label: "Philippines"},
-{value: "PN", label: "Pitcairn"},
+//{value: "PN", label: "Pitcairn"},
 {value: "PL", label: "Poland"},
 {value: "PT", label: "Portugal"},
 {value: "PR", label: "Puerto Rico"},
@@ -226,7 +226,7 @@ var countries = [
 {value: "RO", label: "Romania"},
 {value: "RU", label: "Russian Federation"},
 {value: "RW", label: "Rwanda"},
-{value: "SH", label: "Saint Helena"},
+//{value: "SH", label: "Saint Helena"},
 {value: "KN", label: "Saint Kitts and Nevis"},
 {value: "LC", label: "Saint Lucia"},
 {value: "PM", label: "Saint Pierre and Miquelon"},
@@ -245,12 +245,12 @@ var countries = [
 {value: "SB", label: "Solomon Islands"},
 {value: "SO", label: "Somalia"},
 {value: "ZA", label: "South Africa"},
-{value: "GS", label: "South Georgia and The South Sandwich Islands"},
+//{value: "GS", label: "South Georgia and The South Sandwich Islands"},
 {value: "ES", label: "Spain"},
 {value: "LK", label: "Sri Lanka"},
 {value: "SD", label: "Sudan"},
 {value: "SR", label: "Suriname"},
-{value: "SJ", label: "Svalbard and Jan Mayen"},
+//{value: "SJ", label: "Svalbard and Jan Mayen"},
 {value: "SZ", label: "Swaziland"},
 {value: "SE", label: "Sweden"},
 {value: "CH", label: "Switzerland"},
@@ -283,7 +283,7 @@ var countries = [
 {value: "VG", label: "Virgin Islands, British"},
 {value: "VI", label: "Virgin Islands, U.S."},
 {value: "WF", label: "Wallis and Futuna"},
-{value: "EH", label: "Western Sahara"},
+//{value: "EH", label: "Western Sahara"},
 {value: "YE", label: "Yemen"},
 {value: "ZM", label: "Zambia"},
 {value: "ZW", label: "Zimbabwe"}
@@ -348,7 +348,7 @@ $(document).ready(function () {
 	wobble_opera();
 
 
-	$("#show_all_moons").toggle(function(e) {console.log("yes");
+	$("#show_all_moons").toggle(function(e) {
 		show_all_moons = false;
 		$(".market").css("display", "none");
 		$("#show_all_moons .icon").css("background-image", "url('images/checked_all.png')");
@@ -826,7 +826,7 @@ function left(e) {
 		else i = --following_a_country_iterator;
 
 		var prev_date = switch_data[$("#selected_country_id").val()].dates[i];
-		console.log(prev_date);
+		//console.log(prev_date);
 
 		//update dates
 		var d = Date.parse(prev_date).toString("MMM yyyy");
@@ -900,7 +900,7 @@ function right(e) {
 		else i = ++following_a_country_iterator;
 
 		var next_date = switch_data[$("#selected_country_id").val()].dates[i];
-		console.log(next_date);
+		//console.log(next_date);
 
 		//update dates
 		var d = Date.parse(next_date).toString("MMM yyyy");
@@ -1161,7 +1161,6 @@ function addNewMoons(data, planets) {
 		}
 	});
 	
-	
 	//color top countries differently
 	$(".top_market .moon")
 		.css("fill", "red")
@@ -1171,8 +1170,8 @@ function addNewMoons(data, planets) {
 		showOnlyCountryNames();
 	}
 	
-	//if we're just showing top countries, then hide the markets
-	if(show_all_moons == false) {
+	//if we're just showing top countries, then hide the markets (doesn't apply when we're following a country since the moon for that country should show up regardless)
+	if(show_all_moons == false && following_a_country == false) {
 		$(".market").hide();
 	}
 
@@ -1180,7 +1179,6 @@ function addNewMoons(data, planets) {
 	if(following_a_country == true) {
 		$(".market:not(#" + $("#selected_country_id").val() + "), .top_market:not(#" + $("#selected_country_id").val() + ")").hide();
 	}
-	
 				
 	d3.selectAll(".moon")
 		.transition()
