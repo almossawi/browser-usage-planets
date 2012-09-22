@@ -255,9 +255,9 @@ var countries = [
 {value: "SE", label: "Sweden"},
 {value: "CH", label: "Switzerland"},
 {value: "SY", label: "Syrian Arab Republic"},
-{value: "TW", label: "Taiwan, Province of China"},
+{value: "TW", label: "Taiwan"},
 {value: "TJ", label: "Tajikistan"},
-{value: "TZ", label: "Tanzania, United Republic of"},
+{value: "TZ", label: "Tanzania"},
 {value: "TH", label: "Thailand"},
 {value: "TL", label: "Timor-leste"},
 {value: "TG", label: "Togo"},
@@ -426,6 +426,14 @@ $(document).ready(function () {
 		return false;
 	});
 
+	$("#pause_play_moons_animation").toggle(function(e) {
+		$("#pause_play_moons_animation img").attr("src", "images/play.png");
+		d3.selectAll(".animo").attr("calcMode", "discrete").attr("keyPoints", "0").attr("keyTimes", "0");
+	}, function() {
+		$("#pause_play_moons_animation img").attr("src", "images/pause.png");
+		d3.selectAll(".animo").attr("calcMode", "paced").attr("keyPoints", "0").attr("keyTimes", "0");
+	});
+
 	$("#follow_a_country").on("click", function() {
 		//reset 'follow a country'
 		if($("#follow_a_country .label").html() != "Follow a country") {
@@ -534,6 +542,7 @@ $(document).ready(function () {
 			$("#modal_box2").hide();
 			$("#modal_box #date_field").blur();
 			$("#modal_box2 #country").blur();
+			$("#modal_box2 #country").autocomplete("close");
 
 			return false;
 		}
@@ -602,6 +611,7 @@ $(document).ready(function () {
 				$("#dim").hide();
 				$("#modal_box2").hide();
 				$("#modal_box2 #country").blur();
+				$("#modal_box2 #country").autocomplete("close");
 			}
 			catch(TypeError) {
 				$("#modal_box2 .error").html("hmm...did you select a country from the list on the left?").show();
@@ -627,6 +637,15 @@ $(document).ready(function () {
 	drawPlanets(["firefox","ie", "chrome", "opera"]);
 	updateData();
 	setSwitchData();
+
+
+	//on page load, wait for 30s
+	//setTimeout(function() {
+	//d3.selectAll(".animo").attr("calcMode", "paced").attr("keyPoints", "0").attr("keyTimes", "0")
+	//}, 1000);
+
+	//$("animateMotion").attr("dur", function(i,d) { var d = ((d.substring(0, d.length-1))/10).toFixed(2); console.log(d); return d + "s"; });
+	//$("animateMotion").attr("dur", function(i,d) { var d = ((d.substring(0, d.length-1))*10).toFixed(2); console.log(d); return d + "s"; });
 });
 
 function setSwitchData() {
@@ -1125,7 +1144,12 @@ function addNewMoons(data, planets) {
 				.attr("y", 5);
 
 			g.append("animateMotion")
-				//.attr("dur", randomRange(20,60) + "s")
+				.attr("class", "animo")
+				/*.attr("calcMode", "discrete")
+				.attr("keyTimes", "0;0;1")
+				.attr("keyPoints", function() {
+					return "0; " + randomRange(0,1, 5) + "; 1";
+				})*/
 				.attr("dur", function() {
 					//if we're just showing one country
 					if(following_a_country == true && data[browser][i-1] == $("#selected_country_id").val()) {

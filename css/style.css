@@ -63,9 +63,33 @@ h2 {
 	border-top:0px solid #3e3e3e;
 	z-index:99999999;
 	border-radius:5px;
-	/*border-bottom-right-radius:25px;
-	border-bottom-left-radius:25px;*/
 	background-color:#252525;
+}
+
+#pause_play_moons_animation {
+	border:1px solid #4b4b4b;
+	border-radius:50%;
+	background-color:#4b4b4b;
+	height:15px;
+	width:15px;
+	position:fixed;
+	right:1.62em;
+	color:white;
+	padding-top:0;
+	margin-top:135px;
+	top:50%;
+	font-size:14pt;
+	z-index:99999999;
+	cursor:pointer;
+}
+
+#pause_play_moons_animation img {
+	padding:0;
+	margin:0;
+	position:relative;
+	top:-8px;
+	left:4px;
+	width:7px;
 }
 
 #current_date_top_left {
@@ -314,14 +338,13 @@ a, a:hover, a:active, a:link, a:visited {
 	z-index:9999999999 !important;
 	background-color:black;
 	filter:alpha(opacity=90); /* internet explorer */
-	-khtml-opacity:0.90;      /* khtml,old safari */
-	-moz-opacity:0.90;       /* mozilla,netscape */
+	-khtml-opacity:0.9;      /* khtml,old safari */
+	-moz-opacity:0.9;       /* mozilla,netscape */
 	opacity:0.9;           /* fx,safari,opera */
 	display:none;
 	color:white;
 	font-size:13pt;
 	padding:30px;
-
 }
 
 #dim {
