@@ -255,9 +255,9 @@ body {
 	text-transform: uppercase;
 }
 
-.moon {
+/*.moon {
 	fill:#e7e5e5;
-}
+}*/
 
 .market text {
 	display:none;
@@ -284,7 +284,8 @@ body {
 path {
 	stroke:white;
 	stroke-width:1;
-	opacity:0.3;
+	opacity:0.2;
+	/*fill: #3b3b3b;*/
 }
 
 #summary_chart {
@@ -359,7 +360,7 @@ a, a:hover, a:active, a:link, a:visited {
 	-khtml-opacity:0.80;      /* khtml,old safari */
 	-moz-opacity:0.80;       /* mozilla,netscape */
 	opacity:0.8;           /* fx,safari,opera */
-	display:none;
+	/* display:none; */
 }
 
 .gradient {
@@ -480,3 +481,49 @@ a, a:hover, a:active, a:link, a:visited {
 	border:0;
 }
 
+#video_container {
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+	position: absolute;
+	background-color:black;
+	opacity:0;
+	z-index:99999999999999;
+}
+
+video {
+	min-height: 100%;
+	min-width: 100%;
+	height: auto !important;
+	width: auto !important;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+#and_then {
+	font-family:'Lato', "Helvetica Neue", "Gill Sans", Helvetica, sans-serif, Arial;
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin-top:-30px;
+	margin-left:-550px;
+	z-index:99999999999;
+	width:1100px;
+	height:320px;
+	display:none;
+	color:white;
+	font-size:86px;
+	font-weight:100;
+	text-align:center;
+}
+
+#and_then span {
+	font-size:10pt;
+	padding-top:0;
+	margin-top:0;
+	color:#cccccc;
+	margin-left:-8px;
+}

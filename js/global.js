@@ -1,6 +1,7 @@
 "use strict";
 
 var max_orbits = 3,
+	skipped = false,
 	delayBetweenTimeTravels = 800, //how quickly can one click prev/next consecutively (due to issues in Safari if they're clicked repeatedly too quickly)
 	populateSummaryBoxDelay = 150,
 	bar_transition_speed = 200,
@@ -15,9 +16,13 @@ var max_orbits = 3,
 	
 var top_countries =	["AR","AT","AU","BR","CA","CH","CN","DE","ES","FR","GB","ID","IN","IT","JP","MX","MY","NK","PH","PL","RU","SE","TR","US","VN"];
 
+//var browser_colors = ["#5ce14f", "#ff9600", "#1b8cd5", "#ef0d2a"]
+var browser_colors = ["url('#gradient_chrome')", "url('#gradient_firefox')", "url('#gradient_ie')", "url('#gradient_opera')"]
+
 //tells us the months in which a country switches majority market share from one browser to another
 //switch_data["BH"].dates
-var switch_data;
+var switch_data,
+	myPlayer;
 
 /*var moonSpeedScale = d3.scale.linear()
     .domain([0, 50])
@@ -292,6 +297,63 @@ var countries = [
 
 //https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween
 $(document).ready(function () {
+	if(gup('skip') != "1") {
+		document.getElementById("explosion").volume = 0;
+
+		_V_("bigbang_video").ready(function(){
+			myPlayer = this;
+			myPlayer.options.flash.swf = "bigbang.mp4";
+
+			myPlayer.addEvent("loadeddata", function() {
+				$("#and_then").show(0, function() {
+					d3.selectAll(".intro_circle")
+					.each(function(d, i) {
+						d3.select(this)
+						.transition()
+						.delay(i*700)
+						.duration(300)
+							.attr("fill", function() { return browser_colors[i]; });
+					});
+
+
+
+				}).delay(3000).fadeOut("slow", function() {
+					$("#dim").css("opacity", "0.7").hide();
+					$("#video_container").css("opacity", 1);
+					setTimeout(function() {
+						if(skipped == false)
+							document.getElementById("explosion").play();
+					}, 3200);
+					myPlayer.play();
+				});
+			})
+
+			myPlayer.addEvent("timeupdate", function() {
+				//console.log(myPlayer.currentTime());	
+				if(myPlayer.currentTime() > 13) {
+					$("#video_container").fadeOut(2000);
+				}
+			})
+
+			$("#skip").on("click", function() {
+				$("#video_container").fadeOut();
+				$("#dim").fadeOut();
+				$("#and_then").hide();
+				myPlayer.pause();
+				skipped = true;
+			});
+		});
+	}
+	else {
+		$("#dim").css("opacity", "0.7").hide();
+		$("#video_container").hide();
+	}
+
+	$("#hear_it").on("click", function() {
+		document.getElementById("explosion").volume = 1;
+		$("#hear_it").css("color", "#4eff00");
+	});
+
 	$("#country").autocomplete({
 			appendTo: "#modal_box2",
 			source: countries,
@@ -576,27 +638,20 @@ $(document).ready(function () {
 				//first, check to see if this country has ever switched
 				if($("#selected_country_id").val() != "" && switch_data[$("#selected_country_id").val()].dates.length-1 == 0) {
 
-					$("#arbitrary_msg_box").html("Since July '08, most users in " + $("#selected_country").val() + " have been <br />using the same browser.").show();
+					$("#arbitrary_msg_box").html("Since July 2008, most users in " + $("#selected_country").val() + " have been <br />using the same browser.").show();
 
 					//disable next and prev buttons and appropriate buttons
 					$("#next_date").hide();
 					$("#prev_date").hide();
-					$("#show_all_moons").attr("disabled", "disabled");
-					$("#show_all_moons").css("background-color", "#262626");
-					$("#show_all_moons").css("border-color", "#262626");
-					$("#show_all_moons").css("color", "#535353");
 				}
 				else {
 					//make sure next and prev buttons are enabled and the msg box is hidden
 					$("#next_date").show();
 					$("#prev_date").show();
-					$("#show_all_moons").attr("disabled", "disabled"); //we still don't want to allow users to play with this option during 'follow a country'
-					$("#show_all_moons").css("background-color", "#262626");
-					$("#show_all_moons").css("border-color", "#262626");
-					$("#show_all_moons").css("color", "#535353");
+					//$("#show_all_moons").attr("disabled", "disabled"); //we still don't want to allow users to play with this option during 'follow a country'
 					
 					//$("#arbitrary_msg_box").hide();
-					$("#arbitrary_msg_box").html("Since July '08, the majority market share in " + $("#selected_country").val() + " <br />has switched " + (switch_data[$("#selected_country_id").val()].dates.length-1) + " time(s); move left and right to see them.").show();
+					$("#arbitrary_msg_box").html("Since July 2008, the majority market share in " + $("#selected_country").val() + " <br />has switched " + (switch_data[$("#selected_country_id").val()].dates.length-1) + " time(s); move left and right to see them.").show();
 
 					//if so, move to first date (July 2008) before proceeding
 					var d = Date.parse("July 2008").toString("MMM yyyy");
@@ -616,7 +671,14 @@ $(document).ready(function () {
 			catch(TypeError) {
 				$("#modal_box2 .error").html("hmm...did you select a country from the list on the left?").show();
 				setTimeout(function() { $("#modal_box2 .error").fadeOut(); }, 3000);
+				return;
 			}
+			
+			//only do this if no exception thrown
+			$("#show_all_moons").attr("disabled", "disabled"); //we still don't want to allow users to play with this option during 'follow a country'
+			$("#show_all_moons").css("background-color", "#262626");
+			$("#show_all_moons").css("border-color", "#262626");
+			$("#show_all_moons").css("color", "#535353");
 		}
 	});
 	
@@ -1134,8 +1196,8 @@ function addNewMoons(data, planets) {
 			g.append("circle")
 				.style("opacity", 0)
 				.attr("r", 0)
-				//.style("fill", "url(#img1)")
-				.attr("stroke", "#a4a4a4")
+				.attr("fill", "url('#gradient_white')")
+				/*.attr("stroke", "#a4a4a4")*/
 				.attr("class", "moon");
 
 			g.append("text")
@@ -1186,9 +1248,10 @@ function addNewMoons(data, planets) {
 	});
 	
 	//color top countries differently
-	$(".top_market .moon")
-		.css("fill", "red")
-		.attr("stroke", "#ad0000");
+	d3.selectAll(".top_market .moon")
+		.attr("fill", "url('#gradient_red')");
+		//.css("fill", "red");
+		/*.attr("stroke", "#ad0000");*/
 
 	if(show_country_names == true) {
 		showOnlyCountryNames();
@@ -1294,4 +1357,16 @@ $.fn.volumizer=function(o){ // assumes the user has no controls!
 function randomRange(minVal,maxVal,floatVal) {
   var randVal = minVal+(Math.random()*(maxVal-minVal));
   return typeof floatVal=='undefined'?Math.round(randVal):randVal.toFixed(floatVal);
+}
+
+//http://www.netlobo.com/url_query_string_javascript.html
+function gup(name) {
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\#&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return results[1];
 }

@@ -13,12 +13,20 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
 	<script src="js/jquery.min.js" type="text/javascript"></script>
 	<script src="js/jquery-ui.min.js" type="text/javascript"></script>
+	
 	<script type="text/javascript" src="js/d3.js"></script>
 	<!--<script type="text/javascript" src="http://d3js.org/d3.v2.js"></script> -->
+
+	<!--<link href="css/video-js.min.css" rel="stylesheet">-->
+    <script src="js/video.min.js"></script>
+    <script>
+      _V_.options.flash.swf = "video-js.swf"
+    </script>
+
 	<script type="text/javascript" src="js/global.js"></script>
 	<script type="text/javascript" src="js/date.js"></script>
 	<link rel="stylesheet" href="css/style.css">
-   	<link rel="stylesheet" href="css/ui.core.css" type="text/css" media="screen" />			
+	<link rel="stylesheet" href="css/ui.core.css" type="text/css" media="screen" />			
    	<link rel="stylesheet" href="css/ui.theme.css" type="text/css" media="screen" />
 
  <script type="text/javascript">
@@ -33,7 +41,14 @@
   })();
 </script>
 </head>
-<body>		
+<body>
+		<div id="video_container">
+  			<video id="bigbang_video" class="video-js vjs-default-skin" data-setup='{"autoplay": false, "preload": "auto"}'>
+    			<!--<source src="bigbang.mp4" type='video/mpeg' />-->
+    			<source src="bigbang.ogv" type='video/ogg' />
+			</video>
+		</div>
+
 		<div id="fb-root"></div>
 		<script>
 		(function(d, s, id) {
@@ -106,6 +121,16 @@
    						</feMerge>
 					</filter>
 
+					<radialGradient id="gradient_white" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+	      				<stop offset="10%" style="stop-color:rgb(255,255,255);stop-opacity:1" />
+    	  				<stop offset="100%" style="stop-color:rgb(163,163,163);stop-opacity:1" />
+    				</radialGradient>
+
+    				<radialGradient id="gradient_red" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+	      				<stop offset="10%" style="stop-color:rgb(239,15,42);stop-opacity:1" />
+    	  				<stop offset="100%" style="stop-color:rgb(186,0,2);stop-opacity:1" />
+    				</radialGradient>
+
     				<radialGradient id="gradient_opera" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
 	      				<stop offset="10%" style="stop-color:rgb(239,15,42);stop-opacity:1" />
     	  				<stop offset="100%" style="stop-color:rgb(127,0,1);stop-opacity:1" />
@@ -176,7 +201,7 @@
 				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dolor nibh, commodo a semper vitae, interdum ut augue. Mauris purus dolor, mattis in luctus quis, vestibulum nec tellus. Maecenas urna ipsum, auctor ut sollicitudin sit amet, accumsan nec quam.</p>-->
 			</div>
 			
-			<div id="dim"><!--<img src="images/gradient.png" class="gradient" />--></div>
+			<div id="dim" style="opacity:1"><!--<img src="images/gradient.png" class="gradient" />--></div>
 			<div id="modal_box">
 				<p>Begin typing a date; press <span style="font-family:Courier">enter</span> when done or <span style="font-family:Courier">escape</span> to cancel.<br />Pressing <span style="font-family:Courier">j</span> at any time will bring up this screen.</p>
 				<input type="text" name="the_glorious_date" id="date_field" maxlength="18" />
@@ -193,8 +218,27 @@
 				<input id="selected_country_id" type="hidden" value="" />
 				<p class="error" style="padding-left:300px;position:relative;top:-8px"></p>
 			</div>
+
+			<div id="and_then">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="position:relative;width:200px;height:100px">
+  					<!--<ellipse cx="95" cy="53" rx="50" ry="15" fill="none" stroke="#696969" stroke-width="1" />
+  					<ellipse cx="95" cy="56" rx="70" ry="25" fill="none" stroke="#696969" stroke-width="1" />
+					<circle cx="95" cy="40" r="20" fill="#696969" />-->
+					<circle class="intro_circle" cx="40" cy="40" r="6" fill="#fff" />
+					<circle class="intro_circle" cx="80" cy="60" r="6" fill="#fff" />
+					<circle class="intro_circle" cx="120" cy="40" r="6" fill="#fff" />
+					<circle class="intro_circle" cx="160" cy="60" r="6" fill="#fff" />
+				</svg>
+				<div style="display:block;clear:both">
+					<span><a href="#skip=1" id="skip">skip it</a> &nbsp;|&nbsp; <a href="#" id="hear_it">hear it</a></span>
+				</div>
+			</div>
+			<audio id="explosion">
+				<source src="explosion.ogg" type="audio/ogg" />
+				<source src="explosion.mp3" type="audio/mpeg" />
+			</audio>
+
 			<div id="arbitrary_msg_box"></div>
 		</div>
-
 	</body>
 </html>
