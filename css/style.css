@@ -34,6 +34,7 @@ h2 {
 	font-size:30px;
 	padding-top:0;
 	margin-top:0;
+	margin-top:110px;
 }
 
 #current_date_top_right {
@@ -215,8 +216,8 @@ body {
 	background-repeat:repeat;
 	width:1800px;
 	height:800px;
-	left:10;
-	top:10;
+	left:10px;
+	top:10px;
 }
 
 .plane {
@@ -251,9 +252,9 @@ body {
 	text-transform: capitalize;
 }
 
-#ie_planet text {
+/*#ie_planet text {
 	text-transform: uppercase;
-}
+}*/
 
 /*.moon {
 	fill:#e7e5e5;
@@ -276,6 +277,10 @@ body {
 }
 
 #play_pause_icon {
+	padding-left:4px;
+	border:0;
+	width:17px;
+	height:16px;
 	position:relative;
 	top:4px;
 	padding-left:8px;
@@ -328,6 +333,7 @@ a, a:hover, a:active, a:link, a:visited {
 	right:0px;
 	width:190px;
 	overflow:hidden;
+	opacity:0.8;
 }
 
 #content {
@@ -338,10 +344,7 @@ a, a:hover, a:active, a:link, a:visited {
 	top:-113px;
 	z-index:9999999999 !important;
 	background-color:black;
-	filter:alpha(opacity=90); /* internet explorer */
-	-khtml-opacity:0.9;      /* khtml,old safari */
-	-moz-opacity:0.9;       /* mozilla,netscape */
-	opacity:0.9;           /* fx,safari,opera */
+	opacity:0.9;
 	display:none;
 	color:white;
 	font-size:13pt;
@@ -356,10 +359,7 @@ a, a:hover, a:active, a:link, a:visited {
 	top:0;
 	z-index:9999999999 !important;
 	background-color:black;
-	filter:alpha(opacity=80); /* internet explorer */
-	-khtml-opacity:0.80;      /* khtml,old safari */
-	-moz-opacity:0.80;       /* mozilla,netscape */
-	opacity:0.8;           /* fx,safari,opera */
+	opacity:0.8;
 	/* display:none; */
 }
 
@@ -430,6 +430,9 @@ a, a:hover, a:active, a:link, a:visited {
 #error {
 	color:#cccccc;
 	font-style:italic;
+	padding-left:300px;
+	position:relative;
+	top:-8px;
 }
 
 #content {
@@ -447,7 +450,7 @@ a, a:hover, a:active, a:link, a:visited {
 }
 
 #credit .middle_pane {
-	padding-left:230px;
+	padding-left:140px;
 	margin-left:auto;
 	margin-right:auto;
 	width:550px;
@@ -479,6 +482,8 @@ a, a:hover, a:active, a:link, a:visited {
 	bottom:26px;
 	left:0;
 	border:0;
+	width:72px;
+	height:17px;
 }
 
 #video_container {
@@ -526,4 +531,11 @@ video {
 	margin-top:0;
 	color:#cccccc;
 	margin-left:-8px;
+}
+
+.left_arrow,
+.right_arrow {
+	border:0;
+	width:20px;
+	height:20px;
 }

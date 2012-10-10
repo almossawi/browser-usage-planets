@@ -304,6 +304,10 @@ $(document).ready(function () {
 			myPlayer = this;
 			myPlayer.options.flash.swf = "bigbang.mp4";
 
+			myPlayer.addEvent("loadstart", function() {
+				$("#and_then").show();
+			})
+			
 			myPlayer.addEvent("loadeddata", function() {
 				$("#and_then").show(0, function() {
 					d3.selectAll(".intro_circle")
@@ -314,10 +318,7 @@ $(document).ready(function () {
 						.duration(300)
 							.attr("fill", function() { return browser_colors[i]; });
 					});
-
-
-
-				}).delay(3000).fadeOut("slow", function() {
+				}).delay(2300).fadeOut("slow", function() {
 					$("#dim").css("opacity", "0.7").hide();
 					$("#video_container").css("opacity", 1);
 					setTimeout(function() {
@@ -419,7 +420,7 @@ $(document).ready(function () {
 		show_all_moons = true;
 		$(".market, .top_market").css("display", "block");
 		$("#show_all_moons .icon").css("background-image", "url('images/checked_top.png')");
-		$("#show_all_moons .label").html("Show sensitive countries");
+		$("#show_all_moons .label").html("Show accented countries");
 	});
 	
 	$("#show_country_names").toggle(function(e) {
@@ -841,7 +842,14 @@ function drawPlanets(planets) {
 				.attr("class", "planet");
 
 			g.append("text")
-				.text(browser)
+				.text(function() {
+					//only because it doesn't captialize first letter in firefox
+					if(browser == "ie") return "Internet Explorer";
+					else if(browser == "opera") return "Opera";
+					else if(browser == "chrome") return "Chrome";
+					else if(browser == "firefox") return "Firefox";
+					else return browser;
+				})
 				.attr("text-anchor", "middle")
 				.attr("transform", "translate(-10,-100)")
 				.attr("x", -8)
@@ -1271,7 +1279,7 @@ function addNewMoons(data, planets) {
 		.transition()
 			.duration(500)
 			.style("opacity", 1) //0.8 was fine in chrome, but killed safari and fx; fx, why hath thou forsaken me :(
-			.attr("r", 6);
+			.attr("r", 5);
 }
 
 function wobble_firefox() {

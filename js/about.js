@@ -29,7 +29,7 @@ $(document).ready(function () {
         });
         
     $("#cosmos_logo_bottom").delay(1200).animate(
-        { top: '+=47' }, // what we are animating
+        { top: '+=52' }, // what we are animating
         600, // how fast we are animating
         'swing', // the type of easing
         function() { // the callback
