@@ -404,6 +404,16 @@ $(document).ready(function () {
 			}
 	});
 
+	//social media
+	$("#socialmedia").on("mouseenter", function() {
+		$("#socialmedia span").fadeOut("fast");
+		$("#sm_buttons").hide().css("right", "0px").fadeIn("fast");
+	});
+
+	$("#sm_buttons").on("mouseleave", function() {
+		$("#socialmedia span").fadeIn("fast");
+		$("#sm_buttons").fadeOut("fast").css("right", "-300px");
+	});
 
 	wobble_firefox();
 	wobble_chrome();

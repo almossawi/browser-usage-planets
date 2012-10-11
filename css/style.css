@@ -327,15 +327,6 @@ a, a:hover, a:active, a:link, a:visited {
 	color:white;
 }
 
-#socialmedia {
-	position:fixed;
-	bottom:17px;
-	right:0px;
-	width:190px;
-	overflow:hidden;
-	opacity:0.8;
-}
-
 #content {
 	height:100%;
 	width:500px;
@@ -450,7 +441,7 @@ a, a:hover, a:active, a:link, a:visited {
 }
 
 #credit .middle_pane {
-	padding-left:140px;
+	padding-left:210px;
 	margin-left:auto;
 	margin-right:auto;
 	width:550px;
@@ -538,4 +529,23 @@ video {
 	border:0;
 	width:20px;
 	height:20px;
+}
+
+#socialmedia {
+	position:fixed;
+	right:10px;
+	width:190px;
+	overflow:hidden;
+	bottom:24px;
+	text-align:right;
+	cursor:pointer;
+}
+
+#sm_buttons {
+	position:fixed;
+	right:-300px;
+	width:170px;
+	bottom:17px;
+	overflow:hidden;
+	cursor:pointer;
 }
