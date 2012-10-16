@@ -407,11 +407,11 @@ $(document).ready(function () {
 	//social media
 	$("#socialmedia").on("mouseenter", function() {
 		$("#socialmedia span").fadeOut("fast");
-		$("#sm_buttons").hide().css("right", "0px").fadeIn("fast");
+		$("#sm_buttons").hide().css("right", "0px").fadeIn("slow");
 	});
 
 	$("#sm_buttons").on("mouseleave", function() {
-		$("#socialmedia span").fadeIn("fast");
+		$("#socialmedia span").fadeIn("slow");
 		$("#sm_buttons").fadeOut("fast").css("right", "-300px");
 	});
 

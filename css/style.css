@@ -534,7 +534,7 @@ video {
 #socialmedia {
 	position:fixed;
 	right:10px;
-	width:190px;
+	width:170px;
 	overflow:hidden;
 	bottom:24px;
 	text-align:right;
@@ -544,7 +544,7 @@ video {
 #sm_buttons {
 	position:fixed;
 	right:-300px;
-	width:170px;
+	width:190px;
 	bottom:17px;
 	overflow:hidden;
 	cursor:pointer;
