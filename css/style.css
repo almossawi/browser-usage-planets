@@ -290,7 +290,14 @@ path {
 	stroke:white;
 	stroke-width:1;
 	opacity:0.2;
-	/*fill: #3b3b3b;*/
+	fill: none;
+}
+
+/* for chrome/webkit - better frame rate */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	path {
+		fill: #3b3b3b;
+	}
 }
 
 #summary_chart {
@@ -531,21 +538,21 @@ video {
 	height:20px;
 }
 
-#socialmedia {
+#credit #socialmedia {
 	position:fixed;
-	right:10px;
-	width:170px;
+	right:-40px;
+	width:190px;
 	overflow:hidden;
-	bottom:24px;
-	text-align:right;
+	bottom:17px;
 	cursor:pointer;
 }
 
-#sm_buttons {
+/*#sm_buttons {
 	position:fixed;
-	right:-300px;
+	left:0px;
 	width:190px;
 	bottom:17px;
 	overflow:hidden;
 	cursor:pointer;
-}
+	background-color:#fff;
+}*/
